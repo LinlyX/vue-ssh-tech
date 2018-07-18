@@ -14,7 +14,9 @@ const isDev = process.env.NODE_ENV === 'development'
 let config
 
 const defaultPlugins = [
-  new HTMLPlugin(),
+  new HTMLPlugin({
+    template: path.join(__dirname, 'template.html')
+  }),
   new webpack.DefinePlugin({
     'process.env': {
       NODE_ENV: isDev ? '"development"' : '"production"'
@@ -27,6 +29,9 @@ const devServer = {
   host: '0.0.0.0',
   overlay: {
     errors: true
+  },
+  historyApiFallback: {
+    index: '/public/index.html'
   },
   hot: true
 }

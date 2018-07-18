@@ -1,20 +1,21 @@
 <template>
     <div class="real-app">
-        <input 
+        <input
            type="text"
            class="add-input"
            placeholder="接下来要做的事情"
            autofocus="autofocus"
            @keyup.enter="addTodo">
-        <item v-for="todo in filterTodos" 
-              :key="todo.id" 
-              :todo="todo" 
+        <item v-for="todo in filterTodos"
+              :key="todo.id"
+              :todo="todo"
               @del="deleteThis"/>
-        <tabs 
-            :todos="todos"  
+        <tabs
+            :todos="todos"
             :filter="filter"
             @toggle="toggleFilter"
             @clearAllCompleted="clearAllCompleted(active)"/>
+        <!-- <router-view /> -->
     </div>
 </template>
 

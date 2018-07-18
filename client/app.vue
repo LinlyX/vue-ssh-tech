@@ -2,7 +2,12 @@
   <div id="app">
     <div id="cover"></div>
     <Header></Header>
-    <Todo></Todo>
+    <p>{{fullName}} {{count}}</p>
+    <router-link to='/app'>app</router-link>
+    <router-link to='/login'>login</router-link>
+    <!-- <transition name="fade"> -->
+      <router-view></router-view>
+    <!-- </transition> -->
     <Footer></Footer>
   </div>
 </template>
@@ -11,9 +16,32 @@
 import Header from './layout/header.vue'
 import Footer from './layout/footer.jsx'
 import Todo from './views/todo/todo.vue'
+import { mapState, mapGetters } from 'vuex'
+
 export default {
   components: {
     Header, Footer, Todo
+  },
+  mounted () {
+    console.log(this.$store)
+    let i = 1
+    setInterval(() => {
+      this.$store.commit('updateCount', i++)
+    }, 1000)
+  },
+  computed: {
+    ...mapState({
+      count: 'count'
+    }),
+    ...mapGetters({
+      fullName: 'fullName'
+    })
+    // count () {
+    //   return this.$store.state.count
+    // },
+    // fullName () {
+    //   return this.$store.getters.fullName
+    // }
   }
 }
 </script>
