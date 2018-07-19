@@ -7,6 +7,7 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const webpack = require('webpack')
 const merge = require('webpack-merge')
 const HTMLPlugin = require('html-webpack-plugin')
+const VueClientPlugin = require('vue-server-renderer/client-plugin')
 
 const baseConfig = require('./webpack.config.base.js')
 const isDev = process.env.NODE_ENV === 'development'
@@ -21,7 +22,8 @@ const defaultPlugins = [
     'process.env': {
       NODE_ENV: isDev ? '"development"' : '"production"'
     }
-  })
+  }),
+  new VueClientPlugin()
 ]
 
 const devServer = {

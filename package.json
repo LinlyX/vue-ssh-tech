@@ -17,7 +17,13 @@
     "author": "",
     "license": "ISC",
     "dependencies": {
+        "axios": "^0.18.0",
+        "ejs": "^2.6.1",
+        "koa": "^2.5.2",
+        "koa-router": "^7.4.0",
         "vue": "^2.5.16",
+        "vue-router": "^3.0.1",
+        "vue-server-renderer": "^2.5.16",
         "vuex": "^3.0.1"
     },
     "devDependencies": {
@@ -46,6 +52,7 @@
         "html-webpack-plugin": "^3.2.0",
         "husky": "^0.14.3",
         "install": "^0.12.1",
+        "memory-fs": "^0.4.1",
         "npm": "^6.1.0",
         "postcss-loader": "^2.1.6",
         "rimraf": "^2.6.2",
@@ -54,7 +61,6 @@
         "stylus-loader": "^3.0.2",
         "url-loader": "^1.0.1",
         "vue-loader": "^15.2.4",
-        "vue-router": "^3.0.1",
         "vue-style-loader": "^4.1.0",
         "vue-template-compiler": "^2.5.16",
         "webpack": "^4.0.0",
