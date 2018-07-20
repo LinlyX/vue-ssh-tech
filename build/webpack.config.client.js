@@ -59,15 +59,14 @@ if (isDev) {
       }]
     },
     plugins: defaultPlugins.concat([
-      new webpack.HotModuleReplacementPlugin(),
-      new webpack.NoEmitOnErrorsPlugin()
+      new webpack.HotModuleReplacementPlugin()
     ])
   })
 } else {
   config = merge(baseConfig, {
     entry: {
-      app: path.join(__dirname, '../client/index.js'),
-      vendor: ['vue']
+      app: path.join(__dirname, '../client/index.js')
+      // vendor: ['vue']
     },
     output: {
       filename: '[name].[chunkHash:8].js'
@@ -94,18 +93,10 @@ if (isDev) {
       new ExtractTextPlugin('style.[contentHash:8].css')
     ]),
     optimization: {
-      runtimeChunk: {
-        name: 'manifest'
-      },
       splitChunks: {
-        cacheGroups: {
-          commons: {
-            name: 'vendor',
-            chunks: 'initial',
-            minChunks: 2
-          }
-        }
-      }
+        chunks: 'all' // 默认将node_modules中的代码打包到vendor中
+      },
+      runtimeChunk: true
     }
   })
 }

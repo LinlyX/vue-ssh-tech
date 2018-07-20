@@ -9,6 +9,9 @@
       <router-view></router-view>
     <!-- </transition> -->
     <Footer></Footer>
+    <Notification
+      content="this is some content这要是很长很长，会怎么样展示呢"
+      @clickBtn="notifyClick"/>
   </div>
 </template>
 
@@ -16,11 +19,12 @@
 import Header from './layout/header.vue'
 import Footer from './layout/footer.jsx'
 import Todo from './views/todo/todo.vue'
+import Notification from './components/notification/notification.vue'
 import { mapState, mapGetters } from 'vuex'
 
 export default {
   components: {
-    Header, Footer, Todo
+    Header, Footer, Todo, Notification
   },
   mounted () {
     console.log(this.$store)
@@ -43,6 +47,11 @@ export default {
     // fullName () {
     //   return this.$store.getters.fullName
     // }
+  },
+  methods: {
+    notifyClick () {
+      alert ("弹窗内容") //eslint-disable-line
+    }
   }
 }
 </script>
