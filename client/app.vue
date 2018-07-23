@@ -2,16 +2,15 @@
   <div id="app">
     <div id="cover"></div>
     <Header></Header>
-    <p>{{fullName}} {{count}}</p>
-    <router-link to='/app'>app</router-link>
-    <router-link to='/login'>login</router-link>
-    <!-- <transition name="fade"> -->
+    <!-- <p>{{fullName}} {{count}}</p> -->
+    <!-- <router-link to='/app'>app</router-link>
+    <router-link to='/login'>login</router-link> -->
+    <transition name="fade">
       <router-view></router-view>
-    <!-- </transition> -->
+    </transition>
+    <button @click="notify">测试全局notify函数</button>
     <Footer></Footer>
-    <Notification
-      content="this is some content这要是很长很长，会怎么样展示呢"
-      @clickBtn="notifyClick"/>
+    <!-- <notification content="这是我的Notification"></notification> -->
   </div>
 </template>
 
@@ -19,15 +18,14 @@
 import Header from './layout/header.vue'
 import Footer from './layout/footer.jsx'
 import Todo from './views/todo/todo.vue'
-import Notification from './components/notification/notification.vue'
 import { mapState, mapGetters } from 'vuex'
 
 export default {
   components: {
-    Header, Footer, Todo, Notification
+    Header, Footer, Todo
   },
   mounted () {
-    console.log(this.$store)
+    // console.log(this.$store)
     // let i = 1
     // setInterval(() => {
     //   this.$store.commit('updateCount', {num: i++})
@@ -51,6 +49,12 @@ export default {
   methods: {
     notifyClick () {
       alert ("弹窗内容") //eslint-disable-line
+    },
+    notify () {
+      this.$notify({
+        content: 'test notify',
+        btn: 'close'
+      })
     }
   }
 }

@@ -1,5 +1,14 @@
 <template>
     <div class="real-app">
+        <div class="tab-container">
+          <tabs :value="filter" @change="handleChangeTab">
+            <tab :lable="tab" :index="tab" v-for="tab in states" :key="tab" />
+          </tabs>
+          <!-- <ul>
+            <li></li>
+            <li></li>
+          </ul> -->
+        </div>
         <input
            type="text"
            class="add-input"
@@ -10,10 +19,9 @@
               :key="todo.id"
               :todo="todo"
               @del="deleteThis"/>
-        <tabs
+        <helper
             :todos="todos"
             :filter="filter"
-            @toggle="toggleFilter"
             @clearAllCompleted="clearAllCompleted(active)"/>
         <!-- <router-view /> -->
     </div>
@@ -21,18 +29,19 @@
 
 <script>
 import item from './item.vue'
-import tabs from './tabs.vue'
+import helper from './helper.vue'
 export default {
   data () {
     return {
       todos: [],
       allCounts: 0,
       filter: 'all',
-      id: 0
+      id: 0,
+      states: ['all', 'active', 'completed']
     }
   },
   components: {
-    item, tabs
+    item, helper
   },
   computed: {
     filterTodos () {
@@ -43,6 +52,13 @@ export default {
   },
   methods: {
     addTodo (e) {
+      if (e.target.value === '') {
+        this.$notify({
+          content: '不能为空！',
+          btn: '关闭'
+        })
+        return
+      }
       if (e.target.value !== '') {
         this.todos.unshift({
           id: this.id++,
@@ -56,11 +72,11 @@ export default {
     deleteThis (id) {
       this.todos.splice(this.todos.findIndex(obj => { return obj.id === id }), 1)
     },
-    toggleFilter (state) {
-      this.filter = state
-    },
     clearAllCompleted (active) {
       this.todos.filter(item => item.completed === true)
+    },
+    handleChangeTab (value) {
+      this.filter = value
     }
   }
 }
@@ -87,5 +103,9 @@ export default {
     padding 16px 16px 16px 36px
     border none
     box-shadow inset 0 -2px 1px rgba(0, 0, 0, 0.03)
+}
+.tab-container {
+  background #ffffff
+  padding 0 15px
 }
 </style>
