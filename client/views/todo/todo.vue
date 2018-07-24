@@ -4,10 +4,6 @@
           <tabs :value="filter" @change="handleChangeTab">
             <tab :lable="tab" :index="tab" v-for="tab in states" :key="tab" />
           </tabs>
-          <!-- <ul>
-            <li></li>
-            <li></li>
-          </ul> -->
         </div>
         <input
            type="text"
@@ -22,7 +18,7 @@
         <helper
             :todos="todos"
             :filter="filter"
-            @clearAllCompleted="clearAllCompleted(active)"/>
+            @clearAllCompleted="clearAllCompleted()"/>
         <!-- <router-view /> -->
     </div>
 </template>
@@ -65,15 +61,30 @@ export default {
           content: e.target.value.trim(),
           completed: false
         })
+        this.$notify({
+          content: '您有一件新的代办事项',
+          btn: '关闭'
+        })
       }
       e.target.value = ''
       this.allCounts = this.todos.length
     },
     deleteThis (id) {
       this.todos.splice(this.todos.findIndex(obj => { return obj.id === id }), 1)
+      this.$notify({
+        content: '您清除了一件事情',
+        btn: '关闭'
+      })
     },
     clearAllCompleted (active) {
-      this.todos.filter(item => item.completed === true)
+      const ids = this.todos.filter(item => item.completed === true).map(t => t.id) || []
+      for (let i = 0; i < ids.length; i++) {
+        this.todos.splice(this.todos.findIndex(id => { return id === ids[i] }), 1)
+      }
+      this.$notify({
+        content: '清除所有已完成事项',
+        btn: '关闭'
+      })
     },
     handleChangeTab (value) {
       this.filter = value

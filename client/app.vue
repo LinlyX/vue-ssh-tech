@@ -8,7 +8,6 @@
     <transition name="fade">
       <router-view></router-view>
     </transition>
-    <button @click="notify">测试全局notify函数</button>
     <Footer></Footer>
     <!-- <notification content="这是我的Notification"></notification> -->
   </div>
@@ -49,12 +48,6 @@ export default {
   methods: {
     notifyClick () {
       alert ("弹窗内容") //eslint-disable-line
-    },
-    notify () {
-      this.$notify({
-        content: 'test notify',
-        btn: 'close'
-      })
     }
   }
 }
